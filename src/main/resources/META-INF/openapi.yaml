@@ -1,0 +1,117 @@
+openapi: 3.1.0
+info:
+  title: Customer Resources API
+  version: 1.0.0
+paths:
+  /api/v1/customers/report:
+    post:
+      summary: Generate report from customer data
+      operationId: reportFile
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ReportRequestDto'
+            examples:
+              Report Request:
+                value:
+                  startDate: 2015-01-01
+                  endDate: 2025-12-31
+                  reportType: JSON
+      responses:
+        201:
+          description: Report generated
+          content:
+            application/json:
+              schema:
+                type: object
+  /api/v1/customers:
+    get:
+      summary: Get all customers data
+      operationId: customers
+      responses:
+        200:
+          description: List of customers
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CustomerDto'
+    post:
+      summary: Save customer data
+      operationId: persistCustomer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CustomerRegistrationRequest'
+            examples:
+              Customer Registration:
+                value:
+                  name: Luca Rossi
+                  phoneNumber: 123-456-7890
+                  address: Via Roma, 123
+      responses:
+        201:
+          description: Save customer
+  /api/v1/customers/{id}:
+    patch:
+      summary: Update customer address
+      operationId: updateCustomerAddress
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+          required: true
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CustomerUpdateDto.Request.UpdateCustomerAddress'
+            examples:
+              Customer Address Update:
+                value:
+                  address: Via Roma, 123
+      responses:
+        200:
+          description: Update customer address
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CustomerDto'
+components:
+  schemas:
+    ReportRequestDto:
+      type: object
+      properties:
+        reportType:
+          type: string
+          example: PDF
+    CustomerDto:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
+        email:
+          type: string
+        address:
+          type: string
+    CustomerRegistrationRequest:
+      type: object
+      properties:
+        name:
+          type: string
+        email:
+          type: string
+        address:
+          type: string
+    CustomerUpdateDto.Request.UpdateCustomerAddress:
+      type: object
+      properties:
+        address:
+          type: string

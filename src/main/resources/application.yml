@@ -1,0 +1,37 @@
+quarkus:
+  hibernate-orm:
+    database:
+      generation: drop-and-create
+  datasource:
+    db-kind: h2
+    username: sa
+    password: sa
+    jdbc:
+      url: jdbc:h2:mem:report;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+  arc:
+    auto-producer-methods: true
+
+  http:
+    #TEST PORT
+    test-port: 8083
+    #LOCAL PORT
+    port: 8081
+    #HTTPS PORT
+    ssl-port: 8443
+    #CORS
+    cors: false
+
+
+  swagger-ui:
+    always-include: true
+
+
+### POSTGRES
+#quarkus:
+#  datasource:
+#    username: fruits (1)
+#    password: fruits (2)
+#  hibernate-orm:
+#    database:
+#      generation: validate
+
