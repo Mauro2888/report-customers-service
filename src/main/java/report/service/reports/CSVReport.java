@@ -9,6 +9,7 @@ import report.service.ReportTemplate;
 import javax.enterprise.context.ApplicationScoped;
 import java.util.List;
 import java.util.UUID;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -16,6 +17,7 @@ import java.util.stream.Stream;
 public class CSVReport extends ReportTemplate<ReportRequestDto, Customer> {
 
     private final CustomerRepository customerRepository;
+    private final Logger log = Logger.getLogger(getClass().getName());
 
     public CSVReport(CustomerRepository customerRepository) {
         this.customerRepository = customerRepository;
@@ -37,6 +39,7 @@ public class CSVReport extends ReportTemplate<ReportRequestDto, Customer> {
     }
 
     public String getFileName(){
+        log.info("Generating CSV report...");
         return "csv-report-" + UUID.randomUUID() + ".csv";
     }
 
