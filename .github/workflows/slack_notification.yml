@@ -8,19 +8,6 @@ jobs:
   notify_slack:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-
-      - name: Fetch pull request's branch
-        run: |
-          git fetch origin ${{ github.head_ref }}:${{ github.head_ref }}
-
-      - name: Fetch commits
-        id: commits
-        run: |
-          # Retrieve the titles of the commits and format them as a list
-          COMMITS=$(git log --pretty=format:"- %s" ${{ github.base_ref }}..${{ github.head_ref }} | tr '\n' '\\n') 
-          echo "COMMITS_TITLE=\"$COMMITS\"" >> $GITHUB_ENV
       - name: Send Github notification
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
@@ -34,7 +21,7 @@ jobs:
                 {
                   "color": "${{ job.status }}",
                   "title": "Pull request ${{ github.event.pull_request.state == 'open' && 'opened' || github.event.pull_request.merged == true && 'merged' || 'closed' }} by ${{ github.actor }}",
-                  "text": ":tada: Event details:\n\n- Repository: ${{ github.repository }}\n- Branch: ${{ github.ref }}\n- Pull Request Title: #${{ github.event.pull_request.number }} ${{ github.event.pull_request.title }}\n- :globe_with_meridians: Link: <${{ github.event.pull_request.html_url }}|#${{ github.event.pull_request.number }} ${{ github.event.pull_request.title }}>\n- Commits: \n${{ env.COMMITS_TITLE }}\n\nAll checks have passed\n${{ env.CHECKS }}"
+                  "text": ":tada: Event details:\n\n- Repository: ${{ github.repository }}\n- Branch: ${{ github.ref }}\n- Pull Request Title: #${{ github.event.pull_request.number }} ${{ github.event.pull_request.title }}\n- :globe_with_meridians: Link: <${{ github.event.pull_request.html_url }}|#${{ github.event.pull_request.number }} ${{ github.event.pull_request.title }}>\n- Commits: ${{ env.COMMITS_TITLE }}\n\nAll checks have passed\n${{ env.CHECKS }}"
                 }
               ]
             }
