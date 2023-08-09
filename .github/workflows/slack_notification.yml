@@ -8,6 +8,10 @@ jobs:
   notify_slack:
     runs-on: ubuntu-latest
     steps:
+      - name: Prepare PR title
+        id: pr-title
+        run: echo "PR_TITLE=<${{ github.event.pull_request.html_url }}|#${{ github.event.pull_request.number }} ${{ github.event.pull_request.title }}>" >> $GITHUB_ENV
+
       - name: Get current date
         id: date
         run: echo "CURRENT_DATE=$(date --utc --date='${{ github.event.pull_request.created_at }}' +'%B %d, %Y at %I:%M %p')" >> $GITHUB_ENV
@@ -25,7 +29,7 @@ jobs:
                 {
                   "color": "${{ job.status }}",
                   "title": "Pull request ${{ github.event.pull_request.state == 'open' && 'opened' || github.event.pull_request.merged == true && 'merged' || 'closed' }} by ${{ github.actor }}",
-                  "text": ":tada: Event details:\n\n- Repository: ${{ github.repository }}\n- Branch: ${{ github.ref }}\n- PR Title: <${{ github.event.pull_request.html_url }}|#${{ github.event.pull_request.number }} ${{ github.event.pull_request.title }}>\n- :globe_with_meridians: Link: <${{ github.event.pull_request.html_url }}|Link to PR>\n- Timestamp: ${ { env.CURRENT_DATE }}"
+                  "text": ":tada: Event details:\n\n- Repository: ${{ github.repository }}\n- Branch: ${{ github.ref }}\n- PR Title: ${ { env.PR_TITLE }}\n- :globe_with_meridians: Link: <${{ github.event.pull_request.html_url }}|Link to PR>\n- Timestamp: ${ { env.CURRENT_DATE }}"
                 }
               ]
             }
