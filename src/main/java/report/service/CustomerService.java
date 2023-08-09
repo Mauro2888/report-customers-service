@@ -9,6 +9,7 @@ import report.model.entity.Customer;
 import report.repository.CustomerRepository;
 
 import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Inject;
 import javax.transaction.Transactional;
 import javax.ws.rs.NotFoundException;
 import java.util.List;
@@ -18,12 +19,10 @@ import java.util.stream.Collectors;
 
 @ApplicationScoped
 public class CustomerService {
-
-
     private final CustomerRepository customerRepository;
-
     private final CustomerDTOMapper customerDTOMapper;
 
+    @Inject
     public CustomerService(CustomerRepository customerRepository, CustomerDTOMapper customerDTOMapper) {
         this.customerRepository = customerRepository;
         this.customerDTOMapper = customerDTOMapper;
