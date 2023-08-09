@@ -8,16 +8,6 @@ jobs:
   notify_slack:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-
-      - name: Fetch commits
-        id: commits
-        run: |
-          # Retrieve the titles of the commits
-          COMMITS=$(git log --pretty=format:"%s" ${{ github.event.before }}..${{ github.event.pull_request.head.sha }}) 
-          echo "COMMITS_TITLE=\"$COMMITS\"" >> $GITHUB_ENV
-
       - name: Send Github notification
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
