@@ -2,26 +2,26 @@ name: Pull Request Notification
 
 on:
   pull_request:
-    types: [opened, closed, reopened]
+    types: [opened, closed, reopened, synchronize]
 
 jobs:
   notify_slack:
     runs-on: ubuntu-latest
     steps:
-    - name: Send Github notification
-      env:
-        SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
-      uses: 8398a7/action-slack@v3
-      with:
-        status: custom
-        fields: repo,commit,event,action,workflow,ref,url
-        custom_payload: |
-          {
-            "attachments": [
-              {
-                "color": "${{ job.status }}",
-                "title": "Pull request ${ { github.event.pull_request.state }} by ${ { github.actor }}",
-                "text": "#${{ github.event.pull_request.number }} ${ { github.event.pull_request.title }}\n• ${ { github.event.pull_request.body.split('\\n')[0] }}\nLink :\n<${{ github.event.pull_request.html_url }}| ${ { github.event.pull_request.created_at }}>"
-              }
-            ]
-          }
+      - name: Send Github notification
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+        uses: 8398a7/action-slack@v3
+        with:
+          status: custom
+          fields: repo,commit,event,action,workflow,ref,url
+          custom_payload: |
+            {
+              "attachments": [
+                {
+                  "color": "${{ job.status }}",
+                  "title": "Pull request ${{ github.event.pull_request.state == 'open' && 'opened' || github.event.pull_request.merged == true && 'merged' || 'closed' }} by ${{ github.actor }}",
+                  "text": ":tada: Event details:\n\n- Repository: ${{ github.repository }}\n- Branch: ${{ github.ref }}\n- Pull Request Title: #${{ github.event.pull_request.number }} ${{ github.event.pull_request.title }}\n- :globe_with_meridians: Link: <${{ github.event.pull_request.html_url }}|#${{ github.event.pull_request.number }} ${{ github.event.pull_request.title }}>\n- Commits: ${{ env.COMMITS_TITLE }}\n\nAll checks have passed\n${{ env.CHECKS }}"
+                }
+              ]
+            }
