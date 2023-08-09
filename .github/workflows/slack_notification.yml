@@ -8,18 +8,18 @@ jobs:
   notify_slack:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-
-      - name: Fetch checks
-        id: checks
-        env:
-          GH_TOKEN: ${{ github.token }}
-        run: |
-          # Using GitHub CLI or curl to fetch checks
-          # You'll need to use a GitHub Token with read permissions for checks
-          CHECKS=$(gh api /repos/${{ github.repository }}/commits/${{ github.event.pull_request.head.sha }}/check-runs)
-          echo "CHECKS=${CHECKS}" >> $GITHUB_ENV
+#      - name: Checkout code
+#        uses: actions/checkout@v2
+#
+#      - name: Fetch checks
+#        id: checks
+#        env:
+#          GH_TOKEN: ${{ github.token }}
+#        run: |
+#          # Using GitHub CLI or curl to fetch checks
+#          # You'll need to use a GitHub Token with read permissions for checks
+#          CHECKS=$(gh api /repos/${{ github.repository }}/commits/${{ github.event.pull_request.head.sha }}/check-runs)
+#          echo "CHECKS=${CHECKS}" >> $GITHUB_ENV
 
       - name: Send Github notification
         env:
