@@ -1,6 +1,6 @@
 # Customers-report-service API
 
-API for managing customers and their devices.
+API for generate report
 
 ### Requirements
 For building and running the application you need:
