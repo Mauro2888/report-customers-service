@@ -11,7 +11,7 @@ For building and running the application you need:
 ### Repository
 
 ```shell
-git clone https://github.com/Mauro2888/report-customers-service.git
+[git clone https://github.com/Mauro2888/report-customers-service.git](https://github.com/Mauro2888/report-customers-service.git)
 ```
 
 ### Running the application locally
