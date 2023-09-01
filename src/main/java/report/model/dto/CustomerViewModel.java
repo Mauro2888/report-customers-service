@@ -1,4 +1,4 @@
-package report.service.reports.mapper;
+package report.model.dto;
 
 import java.time.LocalDate;
 import java.util.UUID;
