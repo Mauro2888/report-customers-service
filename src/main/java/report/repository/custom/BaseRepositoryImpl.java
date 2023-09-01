@@ -12,7 +12,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 @ApplicationScoped
-public class BaseRepositoryImpl implements BaseRepositoy<BaseEntity> {
+public class BaseRepositoryImpl implements BaseRepository<BaseEntity> {
 
     private final EntityManager entityManager;
 
