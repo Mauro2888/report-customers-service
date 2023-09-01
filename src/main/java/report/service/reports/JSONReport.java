@@ -5,7 +5,7 @@ import report.model.dto.ReportRequestDto;
 import report.model.entity.Customer;
 import report.repository.CustomerRepository;
 import report.service.ReportTemplate;
-import report.service.reports.mapper.CustomerViewModelMapper;
+import report.model.mapper.CustomerViewModelMapper;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;

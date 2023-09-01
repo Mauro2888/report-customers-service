@@ -1,5 +1,6 @@
-package report.service.reports.mapper;
+package report.model.mapper;
 
+import report.model.dto.CustomerViewModel;
 import report.model.entity.Customer;
 
 import javax.enterprise.context.ApplicationScoped;
