@@ -1,8 +1,9 @@
 package report.repository;
 
 import io.quarkus.hibernate.orm.panache.PanacheRepositoryBase;
+import report.model.entity.BaseEntity;
 import report.model.entity.Customer;
-import report.repository.custom.BaseRepositoryImpl;
+import report.repository.custom.BaseRepository;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
@@ -14,12 +15,13 @@ import java.util.UUID;
 @ApplicationScoped
 public class CustomerRepository implements PanacheRepositoryBase<Customer, UUID> {
 
-    private final BaseRepositoryImpl baseRepository;
+    private final BaseRepository<BaseEntity> baseRepository;
 
     @Inject
-    public CustomerRepository(BaseRepositoryImpl baseRepository) {
+    public CustomerRepository(BaseRepository<BaseEntity> baseRepository) {
         this.baseRepository = baseRepository;
     }
+
 
     public List<Customer> findByCreatedAtBetween(LocalDate startDate, LocalDate endDate) {
         return find("createdAt BETWEEN :startDate AND :endDate",

@@ -3,7 +3,7 @@ package report.repository.custom;
 import java.util.List;
 import java.util.UUID;
 
-public interface BaseRepositoy<E> {
+public interface BaseRepository<E> {
 
     <T extends E> T findById(Class<T> tClass, UUID id);
 
