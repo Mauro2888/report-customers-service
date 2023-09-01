@@ -39,16 +39,17 @@ public class CustomerService {
 
     }
 
-    public List<CustomerDto> customers() {
-        List<Customer> collect = customerRepository.listAll();
-        return collect.stream().map(customerDTOMapper).collect(Collectors.toList());
-    }
-
     @Transactional
     public void saveCustomer(CustomerRegistrationRequest requestDto) {
         Customer customer = new Customer(requestDto.name(),
                 requestDto.address(),
                 requestDto.phoneNumber());
         customerRepository.persist(customer);
+    }
+
+    public List<CustomerDto> customers() {
+        return customerRepository.all()
+                .stream().map(customerDTOMapper)
+                .toList();
     }
 }

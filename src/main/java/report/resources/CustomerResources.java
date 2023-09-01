@@ -81,4 +81,5 @@ public class CustomerResources {
         CustomerDto updateCustomer = customerService.updateCustomer(id, customerUpdate);
         return Response.ok(updateCustomer).build();
     }
+
 }

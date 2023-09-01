@@ -5,19 +5,26 @@ import report.model.dto.ReportRequestDto;
 import report.model.entity.Customer;
 import report.repository.CustomerRepository;
 import report.service.ReportTemplate;
+import report.service.reports.mapper.CustomerViewModelMapper;
 
 import javax.enterprise.context.ApplicationScoped;
-import javax.json.Json;
-import javax.json.stream.JsonCollectors;
+import javax.inject.Inject;
+import javax.json.bind.Jsonb;
+import javax.json.bind.JsonbBuilder;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @ApplicationScoped
 public class JSONReport extends ReportTemplate<ReportRequestDto, Customer> {
-
     private final CustomerRepository customerRepository;
+    private final CustomerViewModelMapper customerViewModelMapper;
+    private final Jsonb jsonb;
 
-    public JSONReport(CustomerRepository customerRepository) {
+    @Inject
+    public JSONReport(CustomerRepository customerRepository, CustomerViewModelMapper customerViewModelMapper) {
         this.customerRepository = customerRepository;
+        this.customerViewModelMapper = customerViewModelMapper;
+        this.jsonb = JsonbBuilder.create();
     }
 
     @Override
@@ -37,14 +44,12 @@ public class JSONReport extends ReportTemplate<ReportRequestDto, Customer> {
 
     @Override
     public String generateContentFile(List<Customer> userData) {
-        return userData.stream()
-                .map(customerEntity -> Json.createObjectBuilder()
-                        .add("id", customerEntity.getId().toString())
-                        .add("name", customerEntity.getName())
-                        .add("address", customerEntity.getAddress())
-                        .add("phoneNumber", customerEntity.getPhoneNumber())
-                        .add("createdAt", customerEntity.getCreatedAt().toString())
-                        .build()).collect(JsonCollectors.toJsonArray()).toString();
+        var output = userData.stream()
+                .map(customerViewModelMapper)
+                .collect(Collectors.toList());
+        return jsonb.toJson(output);
 
     }
+
+
 }

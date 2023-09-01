@@ -18,7 +18,6 @@ public class GenerateData {
         customer.setAddress(faker.address().fullAddress());
         customer.setPhoneNumber(faker.phoneNumber().cellPhone());
         customer.setCreatedAt(DATE);
-        customer.setId(UUID.fromString("ee27a333-4091-4ca5-bf45-5c9684789f70"));
         return customer;
     }
 
@@ -28,7 +27,6 @@ public class GenerateData {
         customer.setAddress("Via Roma");
         customer.setPhoneNumber("3484964326");
         customer.setCreatedAt(DATE);
-        customer.setId(UUID.fromString("ee27a333-4091-4ca5-bf45-5c9684789f70"));
         return customer;
     }
 }
