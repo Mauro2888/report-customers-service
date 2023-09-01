@@ -12,6 +12,7 @@ public class CustomerViewModelMapper implements Function<Customer, CustomerViewM
     public CustomerViewModel apply(Customer customer) {
         return CustomerViewModel.builder()
                 .withId(customer.getId())
+                .withName(customer.getName())
                 .withAddress(customer.getAddress())
                 .withPhoneNumber(customer.getPhoneNumber())
                 .withCreatedAt(customer.getCreatedAt())
