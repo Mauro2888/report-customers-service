@@ -2,22 +2,15 @@ package report.model.entity;
 
 
 import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
 import java.time.LocalDate;
 import java.util.Objects;
-import java.util.UUID;
 
 @Entity
 @Table(name = "customers")
-public class Customer {
-
-    @Id
-    @GeneratedValue(generator = "UUID")
-    @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
-    private UUID id;
+public class Customer extends BaseEntity {
 
     @NotBlank
     private String name;
@@ -48,13 +41,6 @@ public class Customer {
         this.phoneNumber = phoneNumber;
     }
 
-    public UUID getId() {
-        return id;
-    }
-
-    public void setId(UUID uuid) {
-        this.id = uuid;
-    }
 
     public String getName() {
         return name;
@@ -91,13 +77,14 @@ public class Customer {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Customer that)) return false;
-        return Objects.equals(id, that.id) && Objects.equals(name, that.name) && Objects.equals(address, that.address) && Objects.equals(phoneNumber, that.phoneNumber) && Objects.equals(createdAt, that.createdAt);
+        if (o == null || getClass() != o.getClass()) return false;
+        Customer customer = (Customer) o;
+        return Objects.equals(name, customer.name) && Objects.equals(address, customer.address) && Objects.equals(phoneNumber, customer.phoneNumber) && Objects.equals(createdAt, customer.createdAt);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, address, phoneNumber, createdAt);
+        return Objects.hash(name, address, phoneNumber, createdAt);
     }
 }
 

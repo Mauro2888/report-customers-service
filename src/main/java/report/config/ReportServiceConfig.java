@@ -16,8 +16,13 @@ import java.util.stream.Collectors;
 @ApplicationScoped
 public class ReportServiceConfig {
 
+
+    private final Instance<ReportTemplate<ReportRequestDto, Customer>> listOfServices;
+
     @Inject
-    Instance<ReportTemplate<ReportRequestDto, Customer>> listOfServices;
+    public ReportServiceConfig(Instance<ReportTemplate<ReportRequestDto, Customer>> listOfServices) {
+        this.listOfServices = listOfServices;
+    }
 
     @Produces
     public Map<ReportType, ReportTemplate<ReportRequestDto, Customer>> servicesReportTypemap() {

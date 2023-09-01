@@ -1,15 +1,18 @@
 drop table if exists customers CASCADE ;
 -- for h2 database
 create table customers (
-                           id UUID NOT NULL DEFAULT random_uuid(),
+                           id UUID NOT null,
                            name varchar(255) not null,
                            address varchar(255) not null,
                            phoneNumber varchar(255) not null,
-                           createdAt date not null
+                           createdAt date not null,
+                           version int8 not null,
+                           primary key (id)
 );
 
-insert into customers (address, createdAt, name, phoneNumber) values ('123 Main St', '2015-01-01', 'John Doe', '555-555-5555');
-insert into customers (address, createdAt, name, phoneNumber) values ('456 Main St', '2016-01-01', 'Jane Doe', '555-555-5555');
-insert into customers (address, createdAt, name, phoneNumber) values ('789 Main St', '2017-01-01', 'John Smith', '555-555-5555');
-insert into customers (address, createdAt, name, phoneNumber) values ('101 Main St', '2020-01-01', 'Jane Smith', '555-555-5555');
-insert into customers (address, createdAt, name, phoneNumber) values ('102 Main St', '2020-08-02', 'Lucas Check', '555-555-5555');
+insert into customers (id, name, address, phoneNumber, createdAt, version) values (random_uuid(), 'John', '123 Main St', '555-1212', '2019-01-01', 0);
+insert into customers (id, name, address, phoneNumber, createdAt, version) values (random_uuid(), 'Jane', '123 Main St', '555-1212', '2019-01-01', 2);
+insert into customers (id, name, address, phoneNumber, createdAt, version) values (random_uuid(), 'Bob', '123 Main St', '555-1212', '2019-01-01', 1);
+insert into customers (id, name, address, phoneNumber, createdAt, version) values (random_uuid(), 'Sue', '123 Main St', '555-1212', '2019-01-01', 1);
+insert into customers (id, name, address, phoneNumber, createdAt, version) values (random_uuid(), 'Tom', '123 Main St', '555-1212', '2019-01-01', 1);
+insert into customers (id, name, address, phoneNumber, createdAt, version) values (random_uuid(), 'Bill', '123 Main St', '555-1212', '2019-01-01', 1);

@@ -57,8 +57,6 @@ class CSVReportTest {
         customer.setAddress("Via Roma 3");
         customer.setPhoneNumber("123456789");
         customer.setCreatedAt(clock.instant().atZone(ZoneId.systemDefault()).toLocalDate());
-        customer.setId(UUID.randomUUID());
-
         String csv = csvReport.generateContentFile(List.of(customer));
         Assertions.assertEquals("Fulvio;Via Roma 3;123456789;2020-12-31\r".trim(), csv.trim());
     }

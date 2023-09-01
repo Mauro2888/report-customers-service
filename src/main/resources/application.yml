@@ -21,17 +21,6 @@ quarkus:
     #CORS
     cors: false
 
-
   swagger-ui:
     always-include: true
-
-
-### POSTGRES
-#quarkus:
-#  datasource:
-#    username: fruits (1)
-#    password: fruits (2)
-#  hibernate-orm:
-#    database:
-#      generation: validate
 
