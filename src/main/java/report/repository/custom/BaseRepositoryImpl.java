@@ -23,7 +23,7 @@ public class BaseRepositoryImpl implements BaseRepository<BaseEntity> {
 
     @Override
     public <T extends BaseEntity> T findById(Class<T> tClass, UUID id) {
-        return Optional.ofNullable(entityManager.find(tClass,id)).orElseThrow(() -> new NotFoundException("Not found"));
+        return Optional.ofNullable(entityManager.find(tClass, id)).orElseThrow(() -> new NotFoundException("Not found"));
     }
 
     @Override
@@ -33,8 +33,16 @@ public class BaseRepositoryImpl implements BaseRepository<BaseEntity> {
                 .orElseGet(List::of);
     }
 
+    @Override
+    public <T extends BaseEntity> T save(T entity) {
+        entityManager.persist(entity);
+        return entity;
+    }
+
+
     private <T extends BaseEntity> TypedQuery<T> createQuery(Class<T> tClass) {
         return Optional.of(entityManager.createQuery("SELECT e FROM " + tClass.getSimpleName() + " e", tClass))
                 .orElseThrow(() -> new NotFoundException("Not found"));
     }
+
 }
