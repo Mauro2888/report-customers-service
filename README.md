@@ -1,6 +1,6 @@
 # Customers-report-service API
 
-Just a simple service that use template pattern in a real world example.
+Simple service that use template pattern in a real world example.
 
 ### Requirements
 For building and running the application you need:
